@@ -3,15 +3,21 @@
 - [x] Stage 1: Shell prompt
 - [x] Stage 2: Missing commands
 - [x] Stage 3: REPL
-- [x] Stage 4: The exit built-in
 
 Note: echo & which are binaries AND built-ins, so we should prevent shelling out to them.
+~~TODO: Maybe we should introduce the `type` built-in first?~~
 
+- [x] Stage 4: The exit built-in
 - [x] Stage 5: The echo built-in
-- [x] Stage 6: The which built-in: Single PATH entry
-- [x] Stage 7: The which built-in: Multiple PATH entries
-
+- [x] Stage 6: The type built-in: built-ins (1/2)
+- [x] Stage 7: The type built-in: executable files using PATH (2/2)
 - [ ] Stage 8: Run a program
+
+<!--
+- [x] Stage 6: The which built-in: Single PATH entry
+- [x] Stage 7: The which built-in: Multiple PATH entries -->
+
+- [ ] Extension 1, Stage 1: The pwd built-in
 - [ ] Extension 1, Stage 2: The cd built-in: absolute paths
 - [ ] Extension 1, Stage 3: The cd built-in: relative paths
 - [ ] Extension 1, Stage 4: The cd built-in: reading HOME
