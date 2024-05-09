@@ -4,8 +4,8 @@
 - [x] Stage 2: Missing commands
 - [x] Stage 3: REPL
 
-Note: echo & which are binaries AND built-ins, so we should prevent shelling out to them.
 ~~TODO: Maybe we should introduce the `type` built-in first?~~
+Note: echo can also be a binary, so we should prevent shelling out to it.
 
 - [x] Stage 4: The exit built-in
 - [x] Stage 5: The echo built-in
