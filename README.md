@@ -3,7 +3,7 @@
 - [x] Stage 1: Shell prompt
 - [x] Stage 2: Missing commands
 - [x] Stage 3: REPL
-- [ ] Stage 4: The exit built-in
+- [x] Stage 4: The exit built-in
 - [ ] Stage 5: The echo built-in
 - [ ] Stage 6: The which built-in: Single PATH entry
 - [ ] Stage 7: The which built-in: Multiple PATH entries

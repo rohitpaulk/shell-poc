@@ -2,5 +2,10 @@ loop do
   $stdout.write("$ ")
   cmd = gets.chomp
 
-  puts "#{cmd}: command not found"
+  case cmd
+  when "exit"
+    break
+  else
+    puts "#{cmd}: command not found"
+  end
 end
