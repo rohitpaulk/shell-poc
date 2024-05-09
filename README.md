@@ -4,11 +4,14 @@
 - [x] Stage 2: Missing commands
 - [x] Stage 3: REPL
 - [x] Stage 4: The exit built-in
+
+Note: echo & which are binaries AND built-ins, so we should prevent shelling out to them.
+
 - [x] Stage 5: The echo built-in
-- [ ] Stage 6: The which built-in: Single PATH entry
-- [ ] Stage 7: The which built-in: Multiple PATH entries
-- [ ] Stage 6: Run a program
-- [ ] Extension 1, Stage 1: The pwd built-in
+- [x] Stage 6: The which built-in: Single PATH entry
+- [x] Stage 7: The which built-in: Multiple PATH entries
+
+- [ ] Stage 8: Run a program
 - [ ] Extension 1, Stage 2: The cd built-in: absolute paths
 - [ ] Extension 1, Stage 3: The cd built-in: relative paths
 - [ ] Extension 1, Stage 4: The cd built-in: reading HOME
@@ -108,7 +111,7 @@ $ which missing
 missing: Command not found.
 ```
 
-# Stage 6: Run a program
+# Stage 8: Run a program
 
 A valid program is received as input. The program should be executed with the arguments provided.
 
