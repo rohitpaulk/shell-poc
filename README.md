@@ -4,11 +4,21 @@
 
 Program must print `$ ` and wait for input (it should not exit after printing the prompt).
 
+```bash
+$ ./myshell
+$
+```
+
 # Stage 2: Missing commands
 
 Program must read input and print `<command>: Command not found.` if the command is not found.
 
 We won't test whether the prompt is printed again, we'll just check if `<command>: Command not found.` is printed to stdout.
+
+```bash
+$ nonexistent
+nonexistent: Command not found.
+```
 
 # Stage 3: REPL
 
@@ -17,36 +27,135 @@ can get to implementing a REPL.
 
 Send one command, assert `<command>: Command not found.` is printed to stdout. Send another command, assert `<command>: Command not found.` is printed to stdout. Repeat this process 3-5 (random) times. The program should not exit after the last command is sent.
 
+```bash
+$ ./myshell
+$ nonexistent_1
+nonexistent_1: Command not found.
+$ nonexistent_2
+nonexistent_2: Command not found.
+$ nonexistent_3
+nonexistent_3: Command not found.
+```
+
 # Stage 4: The exit built-in
 
-When exit is received as a command, the program should exit with code 0.
+When exit is received as a command, the program should exit with code 0. We'll issue two regular commands first, then invoke exit
+
+```bash
+$ nonexistent_1
+nonexistent_1: Command not found.
+$ nonexistent_2
+nonexistent_2: Command not found.
+$ exit
+```
 
 # Stage 5: The echo built-in
 
 When echo is received as a command, the program should print the rest of the line to stdout.
 
-# Stage 6: Executing a program
+```bash
+$ echo hello
+hello
+$ echo world
+world
+$ echo hello world
+hello world
+```
 
-An absolute path to a program is received as a command. The program should be executed with the arguments provided.
+# Stage 7: The which built-in: Missing program (1/3)
 
-# Stage 7: Program arguments
+We'll always use an invalid program path in this stage.
 
-An absolute path to a program is received as a command, followed by arguments. The program should be executed with the arguments provided.
+```bash
+$ which missing
+missing: Command not found.
+```
 
-# Stage 8: Quoted program arguments
+# Stage 6: The which built-in: Single PATH entry (2/3)
 
-An absolute path to a program is received as a command, followed by quoted arguments. The program should be executed with the arguments provided.
+We'll use a single `PATH` entry for this stage.
 
-# Stage 9: Reading PATH with a single entry
+```bash
+$ which ls
+/usr/bin/ls
+$ which missing
+missing: Command not found.
+```
 
-A single `PATH` entry is provided, followed by a relative path to a program. The program should be executed.
+# Stage 7: The which built-in: Multiple PATH entries (3/3)
 
-# Stage 10: Reading PATH with multiple entries
+We'll use multiple `PATH` entries for this stage.
 
-A `PATH` is provided with multiple entries, followed by a relative path to a program. The program should be executed.
+```bash
+$ which ls
+/usr/bin/ls
+$ which test2
+/usr/local/bin/test2
+$ which missing
+missing: Command not found.
+```
 
-# Stage 11: The cd built-in (1/1)
+# Stage 6: Run a program
 
-When cd is received as a command, the program should change the current working directory.
+A valid program is received as input. The program should be executed with the arguments provided.
 
-# Stage 12: The cd built-in (2/2)
+```bash
+$ mkdir -p /tmp/test1/test2
+$ touch /tmp/test1/test2/testing
+$ ls /tmp/test1/test2
+testing
+```
+
+# Extension: Navigation
+
+# Extension 1, Stage 1: The pwd built-in
+
+When `pwd` is received as a command, the program should print the current working directory.
+
+We've run into problems with changing the working directory in the past (the Git challenge has a lot of hacks around this), so let's always execute the user's program in the default directory. We can use `cd` (later stages) to change the working directory and _actually_ test this command.
+
+# Extension 1, Stage 2: The cd built-in: absolute paths (1/3)
+
+When cd is received with an absolute path to a directory that exists, it should change the current working directory. If the directory doesn't exist, it should say "no such file or directory". We'll test this using `pwd`.
+
+```bash
+$ cd /usr/local/bin
+$ pwd
+/usr/local/bin
+$ cd /does_not_exist
+cd: /does_not_exist: No such file or directory
+```
+
+# Extension 1, Stage 3: The cd built-in: relative paths (2/3)
+
+When cd is received with a relative path, it should change the current working directory. Verify using `pwd`.
+
+Note that most of this is implemented in the chdir system call, so we dont' have to
+split this into `.`, `..` etc. - it should be handled implicitly
+
+```bash
+$ cd /usr
+$ pwd
+/usr
+$ cd ./local/bin
+$ pwd
+/usr/local/bin
+$ cd ../../
+$ pwd
+/usr
+$ cd missing
+cd: missing: No such file or directory
+```
+
+# Extension 1, Stage 4: The cd built-in: reading HOME (3/3)
+
+When cd is received with `~`, it should change the current working directory to the user's home directory. Verify using `pwd`.
+
+```bash
+$ cd /usr/local/bin
+$ pwd
+/usr/local/bin
+$ cd ~
+$ pwd
+/home/user
+```
