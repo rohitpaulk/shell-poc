@@ -1,8 +1,8 @@
 # Build your own Shell
 
 - [x] Stage 1: Shell prompt
-- [ ] Stage 2: Missing commands
-- [ ] Stage 3: REPL
+- [x] Stage 2: Missing commands
+- [x] Stage 3: REPL
 - [ ] Stage 4: The exit built-in
 - [ ] Stage 5: The echo built-in
 - [ ] Stage 6: The which built-in: Single PATH entry
