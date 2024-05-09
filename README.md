@@ -1,5 +1,18 @@
 # Build your own Shell
 
+- [x] Stage 1: Shell prompt
+- [ ] Stage 2: Missing commands
+- [ ] Stage 3: REPL
+- [ ] Stage 4: The exit built-in
+- [ ] Stage 5: The echo built-in
+- [ ] Stage 6: The which built-in: Single PATH entry
+- [ ] Stage 7: The which built-in: Multiple PATH entries
+- [ ] Stage 6: Run a program
+- [ ] Extension 1, Stage 1: The pwd built-in
+- [ ] Extension 1, Stage 2: The cd built-in: absolute paths
+- [ ] Extension 1, Stage 3: The cd built-in: relative paths
+- [ ] Extension 1, Stage 4: The cd built-in: reading HOME
+
 # Stage 1: Shell prompt
 
 Program must print `$ ` and wait for input (it should not exit after printing the prompt).
