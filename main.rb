@@ -1,11 +1,13 @@
 loop do
   $stdout.write("$ ")
-  cmd = gets.chomp
+  command, *args = gets.chomp.split(" ")
 
-  case cmd
+  case command
   when "exit"
     break
+  when "echo"
+    puts args.join(" ")
   else
-    puts "#{cmd}: command not found"
+    puts "#{command}: command not found"
   end
 end
