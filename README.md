@@ -3,20 +3,13 @@
 - [x] Stage 1: Shell prompt
 - [x] Stage 2: Missing commands
 - [x] Stage 3: REPL
-
-~~TODO: Maybe we should introduce the `type` built-in first?~~
-Note: echo can also be a binary, so we should prevent shelling out to it.
-
 - [x] Stage 4: The exit built-in
 - [x] Stage 5: The echo built-in
 - [x] Stage 6: The type built-in: built-ins (1/2)
 - [x] Stage 7: The type built-in: executable files using PATH (2/2)
 - [ ] Stage 8: Run a program
 
-<!--
-- [x] Stage 6: The which built-in: Single PATH entry
-- [x] Stage 7: The which built-in: Multiple PATH entries -->
-
+<!-- TODO: Confirm if pwd is the best way to go vs. using a  -->
 - [ ] Extension 1, Stage 1: The pwd built-in
 - [ ] Extension 1, Stage 2: The cd built-in: absolute paths
 - [ ] Extension 1, Stage 3: The cd built-in: relative paths
@@ -84,36 +77,38 @@ $ echo hello world
 hello world
 ```
 
-# Stage 7: The which built-in: Missing program (1/3)
+Note: echo can also be a binary, so we should prevent shelling out to it.
 
-We'll always use an invalid program path in this stage.
+# Stage 6: The type built-in: built-ins (1/3)
+
+The `type` command should be implemented as a built-in.
+
+`type echo` should print `echo is a shell built-in`.
+`type type` should print `type is a shell built-in`.
+`type nonexistent` should print `nonexistent: Command not found.`
 
 ```bash
-$ which missing
-missing: Command not found.
+$ type echo
+echo is a shell built-in
+$ type exit
+exit is a shell built-in
+$ type type
+type is a shell built-in
+$ type nonexistent
+nonexistent: Command not found.
 ```
 
-# Stage 6: The which built-in: Single PATH entry (2/3)
+# Stage 7: The type built-in: Executable files using PATH (2/3)
 
-We'll use a single `PATH` entry for this stage.
-
-```bash
-$ which ls
-/usr/bin/ls
-$ which missing
-missing: Command not found.
-```
-
-# Stage 7: The which built-in: Multiple PATH entries (3/3)
-
-We'll use multiple `PATH` entries for this stage.
+When a command is received, the program should search for the command in the `PATH` environment variable. If the command is found, the program should print the path to the command. If the command is not found, the program should print `nonexistent: Command not found.`.
 
 ```bash
-$ which ls
+Setting PATH to /usr/bin:/usr/local/bin
+$ type ls
 /usr/bin/ls
-$ which test2
-/usr/local/bin/test2
-$ which missing
+$ type abcd
+/usr/local/bin/abcd
+$ type missing
 missing: Command not found.
 ```
 
